@@ -6,4 +6,12 @@ class User < ApplicationRecord
     has_many :sessions
     has_many :tweets
 
+    after_validation :hash_password
+
+    private
+
+    def hash_password
+        self.password = BCrypt::Password.create(self.password)
+    end
+
 end
